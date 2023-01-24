@@ -1,3 +1,8 @@
+const PROBA_STATIONNE = 5;
+const PROBA_RETARDE = 15;
+
+
+
 function updateHeure() {
     const d = new Date();
     var h = d.getHours();
@@ -6,13 +11,16 @@ function updateHeure() {
     if (h < 10) h = "0" + h;
     document.getElementById("heures").innerHTML = h;
     document.getElementById("minutes").innerHTML = m;
-
-
-
 }
 
 
+
+
+
 function updateTemps() {
+    if(document.getElementsByClassName("train").length === 0) {
+        ecranIndisponible();
+    }
     const listeTemps = document.getElementsByClassName("temps");
     for (let i = 0; i < listeTemps.length; i++) {
         var tps = listeTemps[i].getAttribute("data-temps");
@@ -36,7 +44,12 @@ function updateTemps() {
         }
         else {
             listeTemps[i].getElementsByClassName("duree")[0].innerHTML = tps;
-
+            var random = Math.floor(Math.random() * 100);
+            if (random < PROBA_RETARDE) {
+                setDetails(listeTemps[i].parentElement.parentElement, "retardé");
+                listeTemps[i].getElementsByClassName("duree")[0].innerHTML = " . . .";
+                listeTemps[i].getElementsByClassName("duree")[0].classList.add("clignotant");
+            }
         }
         //print typeof tps 
         console.log(typeof tps);
@@ -74,7 +87,6 @@ function deleteTrain(element) {
 
 
 
-
 }
 
 function setApproche(element, clignotant) {
@@ -93,6 +105,12 @@ function setApproche(element, clignotant) {
     } else if (clignotant === -1) {
         temps.innerHTML = "";
         span.innerHTML = "à quai";
+        // 100 % chance
+        var random = Math.floor(Math.random() * 100);
+        if (random < PROBA_STATIONNE) {
+            setDetails(element, "stationne");
+        }
+
         temps.classList.remove("clignotant");
     }
     temps.appendChild(span);
@@ -100,6 +118,20 @@ function setApproche(element, clignotant) {
 
 
 }
+
+function setDetails(elem, texte) {
+    const details = elem.getElementsByClassName("details-texte")[0];
+    details.innerHTML = texte;
+
+
+}
+
+function ecranIndisponible() {
+    return;
+    const ecran = document.getElementById("ecran-erreur");
+    ecran.style.display = "block";
+}
+
 
 setInterval(updateTemps, 2000);
 setInterval(updateHeure, 2000);
