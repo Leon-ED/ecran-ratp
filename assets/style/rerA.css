@@ -13,11 +13,11 @@
 }
 @font-face {
     font-family: Parisine;
-    src: url('Parisine-Bold.otf');
+    src: url("../fonts/Parisine-Bold.otf");
 }
 @font-face {
     font-family: Parisine-regular;
-    src: url('Parisine-Regular.otf');
+    src: url('../fonts/Parisine-Regular.otf');
 }
 body {
     margin: 0;

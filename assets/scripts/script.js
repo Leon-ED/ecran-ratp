@@ -1,5 +1,5 @@
-const PROBA_STATIONNE = 5;
-const PROBA_RETARDE = 5;
+const PROBA_STATIONNE = 0;
+const PROBA_RETARDE = 0;
 
 
 
@@ -14,11 +14,16 @@ function updateHeure() {
 }
 
 
-
+function getTimeHTML(duree, unite) {
+    if (duree === 0) {
+        return "à l'approche";
+    }
+    return "<span class='duree' data-temps='" + duree + "'>" + duree + "</span> <span class='unite'>" + unite + "</span>";
+}
 
 
 function updateTemps() {
-    if(document.getElementsByClassName("train").length === 0) {
+    if (document.getElementsByClassName("train").length === 0) {
         ecranIndisponible();
     }
     const listeTemps = document.getElementsByClassName("temps");
@@ -26,6 +31,34 @@ function updateTemps() {
         var tps = listeTemps[i].getAttribute("data-temps");
         tps = parseInt(tps) - 1;
         listeTemps[i].setAttribute("data-temps", tps);
+
+        // Si le train est retardé ou stationné
+        if (listeTemps[i].parentElement.parentElement.hasAttribute("data-special")) {
+            const attribut = listeTemps[i].parentElement.parentElement.getAttribute("data-special");
+            // Si le train est retardé et à -2 on lui met un temps à 2 min
+            if (attribut === "retarde" && tps === -2) {
+                const html = getTimeHTML(2, "min");
+                listeTemps[i].setAttribute("data-temps", 2);
+                listeTemps[i].innerHTML = html;
+                listeTemps[i].parentElement.parentElement.removeAttribute("data-special");
+                listeTemps[i].parentElement.parentElement.setAttribute("data-noSpecial", "true");
+                setDetails(listeTemps[i].parentElement.parentElement, "");
+            }
+
+            if (attribut === "stationne" && tps === -12) {
+                setDetails(listeTemps[i].parentElement.parentElement, "train terminus");
+                listeTemps[i].parentElement.parentElement.removeAttribute("data-special");
+                listeTemps[i].parentElement.parentElement.setAttribute("data-noSpecial", "true");
+            }
+            continue;
+
+        }
+
+        if (tps <= -7) {
+            // Si on est à -6, on supprime le train
+            deleteTrain(listeTemps[i]);
+        }
+
 
         if (tps === 0) {
             // A l'approche
@@ -39,16 +72,16 @@ function updateTemps() {
             // A quai
             setApproche(listeTemps[i], -1);
 
-        } else if (tps <= -6) {
-            deleteTrain(listeTemps[i]);
         }
         else {
             listeTemps[i].getElementsByClassName("duree")[0].innerHTML = tps;
             var random = Math.floor(Math.random() * 100);
-            if (random < PROBA_RETARDE) {
+            if (random < PROBA_RETARDE && listeTemps[i].parentElement.parentElement.hasAttribute("data-noSpecial") === false) {
                 setDetails(listeTemps[i].parentElement.parentElement, "retardé");
                 listeTemps[i].getElementsByClassName("duree")[0].innerHTML = " . . .";
                 listeTemps[i].getElementsByClassName("duree")[0].classList.add("clignotant");
+                listeTemps[i].parentElement.parentElement.setAttribute("data-special", "retarde");
+
             }
         }
         //print typeof tps 
@@ -56,8 +89,37 @@ function updateTemps() {
         console.log(tps);
 
     }
-
 }
+
+
+function canTrainStop(train) {
+    var listeTrain = document.getElementsByClassName("train");
+
+    const quai = train.getElementsByClassName("voie-nom")[0];
+
+
+    for (let i = 0; i < listeTrain.length; i++) {
+        const currTrain = listeTrain[i];
+        if(currTrain === train) continue;
+
+        const currQuai = currTrain.getElementsByClassName("voie-nom")[0];
+        const currStatut = currTrain.getElementsByClassName("temps")[0];
+        console.log(currQuai.innerHTML);
+        console.log(quai.innerHTML);
+        console.log(currStatut.innerHTML);
+
+        if (currQuai.innerHTML == quai.innerHTML && currStatut.innerHTML == "à quai") {
+            return false;
+        }
+
+    }
+
+    return true;
+}
+
+
+
+
 function deleteTrain(element) {
     element.innerHTML = "à quai";
     element = element.parentElement;
@@ -90,7 +152,6 @@ function deleteTrain(element) {
 }
 
 function setApproche(element, clignotant) {
-    console.log(element);
     element = element.parentElement;
     element = element.parentElement;
     const temps = element.getElementsByClassName("temps")[0];
@@ -102,16 +163,16 @@ function setApproche(element, clignotant) {
     } else if (clignotant === 1) {
         temps.innerHTML = "";
         span.innerHTML = "à l'approche";
-    } else if (clignotant === -1) {
+        
+    } else if (clignotant === -1 && canTrainStop(element)) {
         temps.innerHTML = "";
         span.innerHTML = "à quai";
-        // 100 % chance
+
         var random = Math.floor(Math.random() * 100);
         if (random < PROBA_STATIONNE) {
             setDetails(element, "stationne");
+            element.setAttribute("data-special", "stationne");
         }
-
-        temps.classList.remove("clignotant");
     }
     temps.appendChild(span);
     temps.classList.add("temps-texte");
