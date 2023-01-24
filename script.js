@@ -19,16 +19,19 @@ function updateTemps() {
         tps = parseInt(tps) - 1;
         listeTemps[i].setAttribute("data-temps", tps);
 
-        if (tps === 1) {
+        if (tps === 0) {
+            // A l'approche
             setApproche(listeTemps[i], 1);
         }
-        else if (tps === 0) {
+        else if (tps === -2) {
+            // A l'approche clignotant
             setApproche(listeTemps[i], 0);
         }
-        else if (tps === -1) {
+        else if (tps === -4) {
+            // A quai
             setApproche(listeTemps[i], -1);
 
-        } else if (tps <= -2) {
+        } else if (tps <= -6) {
             deleteTrain(listeTemps[i]);
         }
         else {
@@ -99,4 +102,4 @@ function setApproche(element, clignotant) {
 }
 
 setInterval(updateTemps, 2000);
-setInterval(updateHeure, 1000);
+setInterval(updateHeure, 2000);
