@@ -1,5 +1,5 @@
 const PROBA_STATIONNE = 5;
-const PROBA_RETARDE = 15;
+const PROBA_RETARDE = 5;
 
 
 
