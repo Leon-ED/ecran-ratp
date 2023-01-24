@@ -11,9 +11,8 @@
     <main>
         <div class="top-left">
             <div class="logos">
-            <h1 class="carre-ligne type-ligne">RER</h1>
-            <h1 class="carre-ligne ligne">A</h1>
-            </div>
+            <img src="header.png" alt="logo RER A" height="60px">
+        </div>
             <div class="directions">
                 <h2>Paris · Poissy · Cergy</h2>
                 <h2>Saint-Germain-en-Laye</h2>
@@ -125,12 +124,20 @@
                 --destination: 3em;
                 --margin : 0.8%;
             }
+            @font-face {
+                font-family: Parisine;
+                src: url('Parisine-Bold.otf');
+            }
+            @font-face {
+                font-family: Parisine-regular;
+                src: url('Parisine-Regular.otf');
+            }
             body {
                 margin: 0;
                 padding: 0;
                 background-color: var(--bg);
                 color: var(--blue);
-                font-family: Arial, Helvetica, sans-serif;
+                font-family: Parisine;
             }
             .heure{
                 position: absolute;
@@ -228,6 +235,8 @@
             }
             .mission{
                 background-color: var(--purple);
+                font-family: Parisine-regular;
+                font-weight: 100;
                 color: var(--white);
                 padding: 5px;
                 font-size: 1.3em;
@@ -236,8 +245,6 @@
                 margin-top: auto;
                 margin-bottom: auto;
                 display: flex;
-                justify-content: center;
-                align-items: center;
             }
             .destination {
                 margin-left: 10px;
@@ -361,8 +368,8 @@
                 font-size: var(--big-text);
                 white-space: nowrap;
                 width: fit-content;
-                padding-left: 2px;
-                padding-right: 4px;
+                padding-left: 5px;
+                padding-right: 8px;
             }
 
             .surbrillance{
