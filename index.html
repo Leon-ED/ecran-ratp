@@ -29,11 +29,12 @@
                 <div class="destination" contenteditable="true">Noisy-le-Grand Mont d'Est</div>
                 </div>
                 <div class="infos">
-                    <div class="temps temps-texte">
-                        <span contenteditable="true">à quai</span>
+                    <div class="temps" data-temps="5">
+                        <span class="duree">5</span>
+                        <span class="unite">min</span>
                     </div>
                     <div class="details">
-                    <span class="details-texte" contenteditable="true">stationne</span>
+                    <span class="details-texte" contenteditable="true"></span>
                     <div class="details-voie">
                         <span class="voie">Voie</span>
                         <span class="voie-nom" contenteditable="true">Z</span>
@@ -47,8 +48,9 @@
                 <div class="destination">Saint-Germain-en-Laye</div>
                 </div>
                 <div class="infos">
-                    <div class="temps temps-texte">
-                        <span class="clignotant">à l'approche</span>
+                    <div class="temps" data-temps="7">
+                        <span class="duree">7</span>
+                        <span class="unite">min</span>
                     </div>
                     <div class="details">
                     <span class="details-texte"></span>
@@ -66,11 +68,12 @@
             <div class="destination">Saint-Germain-en-Laye</div>
             </div>
             <div class="infos">
-                <div class="temps temps-texte">
-                    <span class="">...</span>
+                <div class="temps" data-temps="10">
+                    <span class="duree">10</span>
+                    <span class="unite">min</span>
                 </div>
                 <div class="details">
-                <span class="details-texte">retardé</span>
+                <span class="details-texte"></span>
                 <div class="details-voie">
                     <span class="voie">Voie</span>
                     <span class="voie-nom">1</span>
@@ -80,16 +83,16 @@
             </div>
             <div class="train">
             <div class="desserte">
-            <div class="mission">BWOW</div>
-            <div class="destination">Dépôt</div>
+            <div class="mission">YVAN</div>
+            <div class="destination">Rueil-Malmaison</div>
             </div>
             <div class="infos">
-                    <div class="temps">
-                        <span class="duree">3</span>
+                    <div class="temps" data-temps="13">
+                        <span class="duree">13</span>
                         <span class="unite">min</span>
                     </div>
                 <div class="details">
-                <span class="details-texte">train sans arrêt</span>
+                <span class="details-texte"></span>
                 <div class="details-voie">
                     <span class="voie">Voie</span>
                     <span class="voie-nom">1</span>
@@ -384,6 +387,7 @@
                 left: 0;
             }
             .bandeau-texte{
+                font-family: Parisine-regular;
                 margin-left: 80px;
             }
         </style>
