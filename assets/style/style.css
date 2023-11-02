@@ -1,0 +1,408 @@
+@font-face {
+    font-family: Parisine;
+    src: url("../fonts/ParisineBold.otf");
+  }
+  @font-face {
+    font-family: Parisine-regular;
+    src: url("../fonts/ParisineRegular.otf");
+  }
+
+:root {
+    --blue: #0a0086;
+    --red: #ff0000;
+    --bg: #bec5df;
+    --yellow: #fdbf00;
+    --bg2: #dee2ee;
+    --purple: #544dad;
+    --white: #ffffff;
+    --big-text: 2em;
+    --sub-text: 1.5em;
+    --destination: 3.5em;
+    --destination-small: 2rem;
+  
+    --margin: 0.8%;
+  }
+  
+  .details-texte, .min,.destination-texte{
+    display: block;
+    width: 100%;
+  }
+  .min{
+    text-align: center;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg);
+    color: var(--blue);
+    font-family: Parisine;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+  }
+
+
+.LineButton:active {
+  opacity: 0.5;
+}
+.LineButton:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.LineButton img {
+  height: 80px;
+}
+
+.LineButton p {
+  text-align: center;
+}
+
+.LineChooser-lineList {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.StationButton {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--color-bleu);
+  background-color: white;
+}
+
+.StationButton:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.train {
+  background-color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  height: 90px;
+  transition: height 0.7s ease;
+}
+
+.train.removed,
+.train.removed > * {
+  height: 0;
+  opacity: 0;
+  transform: translateY(-100px);
+  transition: opacity 0.4s ease, height 1s ease, transform 1s ease;
+}
+
+.desserte {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+  max-width: 60%;
+}
+.mission {
+  background-color: var(--purple);
+  font-family: Parisine-regular;
+  font-weight: 100;
+  color: var(--white);
+  padding: 5px;
+  font-size: 1.3em;
+  height: 25px;
+  width: 85px;
+  text-align: left;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.destination {
+  margin-left: 10px;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: var(--destination);
+  font-weight: 900;
+  overflow: hidden;
+}
+.destination-texte-small {
+  font-size: var(--destination-small);
+}
+
+.temps {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  min-width: 80px;
+  background-color: black;
+  color: var(--yellow);
+}
+
+.temps .duree {
+  font-size: 3.2em;
+  font-weight: bold;
+  margin: 0;
+}
+.temps .temps-heure {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 0;
+}
+
+.temps .unite {
+  font-size: 20px;
+  font-family: Parisine-regular;
+  margin: 0;
+}
+.infos {
+  width: 40%;
+  background-color: var(--bg2);
+  display: flex;
+}
+
+.details {
+  width: 100%;
+  margin-left: 5px;
+  margin-right: 5px;
+  color: var(--blue);
+  font-weight: 700;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.train-infos {
+  font-size: var(--destination);
+}
+
+.details-voie {
+  outline: 2px solid var(--blue);
+  border-radius: 5px;
+  padding: 2px 5px 2px 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1.5em;
+
+  align-items: center;
+}
+
+.clignotant {
+  animation: clignotant 2s step-start infinite;
+}
+
+@keyframes clignotant {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.temps-texte {
+  font-size: var(--destination);
+  padding: 0 20px;
+  white-space: nowrap;
+  min-width: fit-content;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  33.33% {
+    opacity: 0.3;
+  }
+  66.66% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.loader__dot {
+  animation: 1500ms blink infinite;
+  opacity: 0.3;
+}
+
+.loader__dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.loader__dot:nth-child(2) {
+  animation-delay: 400ms;
+}
+
+.loader__dot:nth-child(3) {
+  animation-delay: 800ms;
+}
+
+.ErrorDisplay {
+  height: 100%;
+  background-color: var(--blue);
+  color: white;
+}
+
+.ErrorDisplay h1 {
+  font-size: 3.5em;
+  margin: 0;
+  padding-left: 250px;
+}
+
+.bandeau {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  background-color: var(--white);
+  color: black;
+  font-size: var(--sub-text);
+  width: 100%;
+  margin-top: 30px;
+  height: 100%;
+  max-height: 200px;
+}
+
+.bandeau-logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.bandeau-texte {
+  font-family: Parisine-regular;
+  margin-left: 80px;
+}
+.surbrillance {
+  background-color: black;
+  color: var(--white);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.bandeau img {
+  height: 40px;
+  width: 40px;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.bandeau-dots {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 60px;
+  left: 10px;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background-color: var(--bg);
+  margin-top: 3px;
+  margin-bottom: 3px;
+  display: inline-block;
+}
+
+.dot[data-active="true"] {
+  background-color: var(--purple);
+}
+
+#heure {
+  position: absolute;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 50px;
+  top: 0;
+  background-color: black;
+  color: var(--yellow);
+
+  height: 70px;
+  width: 120px;
+  font-size: larger;
+  text-align: center;
+  padding-top: 0;
+}
+
+.RER_Display {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
+.logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 30px;
+}
+main {
+  margin: var(--margin);
+  display: flex;
+  flex-direction: column;
+}
+.top-left {
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 20px;
+  align-items: center;
+  flex-direction: row;
+  background-color: var(--white);
+  gap: 40px;
+  height: 90px;
+}
+.top-left {
+  border-bottom: var(--red) solid 10px;
+}
+
+.directions {
+  font-size: 1.4em;
+  margin-left: 0;
+}
+.carre-ligne {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.line {
+  margin-bottom: 5px;
+  width: 100%;
+  border: 5px solid var(--red);
+}
+
+.type-ligne {
+  background-color: var(--white);
+  color: var(--blue);
+
+  outline: 6px solid var(--blue);
+  border-radius: 9px;
+}
+.ligne {
+  background-color: var(--red);
+  color: var(--white);
+
+  outline: 6px solid var(--red);
+  border-radius: 9px;
+  font-size: 50px;
+}
+
+.train_list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+
